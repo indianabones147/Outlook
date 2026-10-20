@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reply Polisher - get your manifest</title>
+  <link rel="stylesheet" href="taskpane.css">
+  <style>#app{max-width:640px;margin:20px auto}</style>
+</head>
+<body>
+  <main id="app">
+    <header><img src="assets/icon-64.png" alt="" width="40" height="40"><h1>Reply Polisher setup</h1></header>
+    <p>This page makes the <b>manifest.xml</b> file you add to Outlook. It already knows where it is hosted.</p>
+    <label for="host">Your add-in address</label>
+    <input id="host" type="url">
+    <div class="row"><button id="dl" class="primary" type="button">Download manifest.xml</button></div>
+    <p id="msg" class="status" role="status"></p>
+    <div class="card">
+      <b>Next:</b> in Outlook go to <a href="https://aka.ms/olksideload" target="_blank" rel="noopener">aka.ms/olksideload</a>
+      (or Get Add-ins &gt; My add-ins &gt; Add a custom add-in &gt; Add from file) and choose the downloaded manifest.xml.
+    </div>
+  </main>
+  <script src="manifest-gen.js"></script>
+  <script>
+    (function () {
+      var hostEl = document.getElementById("host");
+      var msg = document.getElementById("msg");
+      hostEl.value = location.href.replace(/[?#].*$/, "").replace(/[^/]*$/, "");
+      document.getElementById("dl").addEventListener("click", function () {
+        msg.className = "status"; msg.textContent = "";
+        fetch("manifest.template.xml", { cache: "no-store" })
+          .then(function (r) { if (!r.ok) throw new Error("Could not load manifest.template.xml (" + r.status + ")"); return r.text(); })
+          .then(function (tpl) {
+            var xml = ManifestGen.buildManifest(tpl, hostEl.value);
+            var a = document.createElement("a");
+            a.href = URL.createObjectURL(new Blob([xml], { type: "application/xml" }));
+            a.download = "manifest.xml";
+            document.body.appendChild(a); a.click(); a.remove();
+            msg.className = "status ok"; msg.textContent = "Downloaded manifest.xml.";
+          })
+          .catch(function (e) { msg.className = "status error"; msg.textContent = e.message; });
+      });
+    })();
+  </script>
+</body>
+</html>

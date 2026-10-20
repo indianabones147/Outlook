@@ -1,0 +1,37 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; color: #1f1f1f; background: #fff; }
+#app { padding: 12px 14px 24px; }
+header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+header h1 { font-size: 17px; font-weight: 600; margin: 0; flex: 1; }
+h2 { font-size: 15px; margin: 0 0 8px; }
+label { display: block; font-weight: 600; font-size: 12px; margin: 10px 0 4px; color: #444; }
+input, textarea { width: 100%; padding: 7px 8px; border: 1px solid #c8c8c8; border-radius: 4px; font: inherit; }
+textarea { resize: vertical; line-height: 1.45; }
+input:focus, textarea:focus { outline: 2px solid #0f6cbd; outline-offset: -1px; }
+button { font: inherit; border-radius: 4px; padding: 7px 14px; border: 1px solid #0f6cbd; background: #fff; color: #0f6cbd; cursor: pointer; }
+button.primary { background: #0f6cbd; color: #fff; }
+button.primary:hover { background: #115ea3; }
+button.secondary { border-color: #c8c8c8; color: #1f1f1f; }
+button.secondary:hover { background: #f3f3f3; }
+button.small { padding: 4px 10px; font-size: 12px; }
+button.link { border: none; background: none; color: #0f6cbd; padding: 4px; text-decoration: underline; }
+button:disabled { opacity: .55; cursor: default; }
+#polishBtn, #suggestBtn { width: 100%; margin-top: 12px; padding: 10px; font-size: 15px; font-weight: 600; }
+.row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+.row input { flex: 1; }
+.row.wrap { flex-wrap: wrap; }
+.card { border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px; margin: 10px 0; background: #fafafa; }
+.hidden { display: none !important; }
+.intro { color: #444; margin: 0 0 6px; line-height: 1.4; }
+.hint { font-size: 12px; color: #616161; margin: 8px 0 0; line-height: 1.4; }
+.status { min-height: 18px; font-size: 13px; margin: 10px 0 0; }
+.status.error { color: #b10e1c; }
+.status.ok { color: #107c10; }
+.result-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+.badge { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 10px; background: #e8e8e8; color: #333; }
+.badge.sales { background: #dff6dd; color: #0e5c0e; }
+.badge.pro { background: #deecf9; color: #0f4a85; }
+.category { font-size: 12px; color: #616161; }
+.notes { font-size: 12px; background: #fff4ce; border-radius: 4px; padding: 6px 8px; margin: 8px 0 0; }
+.spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid #c8c8c8; border-top-color: #0f6cbd; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: -2px; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }

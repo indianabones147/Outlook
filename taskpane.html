@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reply Polisher</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="taskpane.css">
+</head>
+<body>
+  <main id="app">
+    <header>
+      <img src="assets/icon-32.png" alt="" width="24" height="24">
+      <h1>Reply Polisher</h1>
+      <button id="settingsToggle" class="link" type="button" aria-expanded="false">Settings</button>
+    </header>
+
+    <section id="settings" class="card hidden" aria-label="Settings">
+      <h2>Settings</h2>
+      <label for="apiKey">xAI API key</label>
+      <div class="row">
+        <input id="apiKey" type="password" autocomplete="off" spellcheck="false" placeholder="xai-...">
+        <button id="toggleKey" type="button" class="secondary small">Show</button>
+      </div>
+      <p class="hint">Create one at <a href="https://console.x.ai" target="_blank" rel="noopener">console.x.ai</a> (API Keys). A SuperGrok / X Premium subscription does not include API access.</p>
+      <label for="baseUrl">Base URL</label>
+      <input id="baseUrl" type="url" spellcheck="false">
+      <label for="model">Model</label>
+      <input id="model" type="text" spellcheck="false">
+      <div class="row">
+        <button id="saveSettings" type="button">Save &amp; test</button>
+        <button id="resetSettings" type="button" class="secondary">Reset defaults</button>
+      </div>
+      <p id="settingsStatus" class="status" role="status"></p>
+      <p class="hint">Your key is saved in your Outlook mailbox settings for this add-in (or this browser if those are unavailable). Email text you polish is sent to the AI provider above.</p>
+    </section>
+
+    <section id="composeView" class="hidden">
+      <p class="intro">Write your reply as usual, then click the button. Your draft and the earlier email are sent to the AI and a cleaned-up version appears below. Nothing changes until you click <b>Replace my draft</b>.</p>
+      <label for="extra">Extra instructions (optional)</label>
+      <input id="extra" type="text" placeholder="e.g. shorter, more formal, mention the call on Friday">
+      <button id="polishBtn" type="button" class="primary">Polish my reply</button>
+    </section>
+
+    <section id="readView" class="hidden">
+      <p class="intro">Get a suggested reply to this email. Optionally jot down what you want to say.</p>
+      <label for="readNotes">What do you want to say? (optional)</label>
+      <textarea id="readNotes" rows="3" placeholder="e.g. yes to the demo, Thursday 2pm works, price is $40/user"></textarea>
+      <label for="readExtra">Extra instructions (optional)</label>
+      <input id="readExtra" type="text" placeholder="e.g. short and friendly">
+      <button id="suggestBtn" type="button" class="primary">Suggest a reply</button>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <section id="result" class="card hidden" aria-label="Polished reply">
+      <div class="result-head">
+        <span id="modeBadge" class="badge"></span>
+        <span id="category" class="category"></span>
+      </div>
+      <textarea id="output" rows="12" aria-label="Polished reply (you can edit it)"></textarea>
+      <p id="notes" class="notes hidden"></p>
+      <div class="row wrap">
+        <button id="replaceBtn" type="button" class="primary">Replace my draft</button>
+        <button id="openReplyBtn" type="button" class="primary hidden">Open reply with this</button>
+        <button id="copyBtn" type="button" class="secondary">Copy</button>
+        <button id="retryBtn" type="button" class="secondary">Try again</button>
+      </div>
+      <p class="hint" id="replaceHint">Replace keeps your signature and the earlier emails below your reply when Outlook exposes them. Use Ctrl+Z / Cmd+Z in the message to undo.</p>
+    </section>
+
+    <section id="unsupported" class="card hidden">
+      <p>Open this add-in while writing a reply (or while reading an email) in Outlook.</p>
+    </section>
+  </main>
+  <script src="core.js"></script>
+  <script src="taskpane.js"></script>
+</body>
+</html>
